@@ -70,131 +70,71 @@
     }
 }
 
-### .babelrc
+**.babelrc**
 
+```json
 {
   "presets": [
     "@babel/preset-env"
   ]
 }
 
-To set up your project, don't forget to run the following command after creating the 
-package.json file:
 
-npm install
+**and…**
 
+Don't forget to run `$ npm install` when you have the `package.json`.
 
-## Task 0: Install a Redis Instance
+**0. Install a Redis instance (mandatory)**
 
-### Step 1: Download and Compile Redis
+1. Download, extract, and compile the latest stable Redis version (higher than 5.0.7) from [Redis Downloads](https://redis.io/download/):
 
-1. Download the latest stable Redis version (higher than 5.0.7) from [Redis Downloads](https://redis.io/download/):
-
-   ```bash
-   $ wget http://download.redis.io/releases/redis-6.0.10.tar.gz
-
-1. Extract the downloaded archive and navigate to the Redis directory:
+```bash
+$ wget http://download.redis.io/releases/redis-6.0.10.tar.gz
 $ tar xzf redis-6.0.10.tar.gz
 $ cd redis-6.0.10
-
-2. Compile Redis using the make command:
 $ make
 
+1. Start Redis in the background with the following command:
 
-## Step 2: Start Redis Server
-
-1. Start Redis in the background using the following command:
+```bash
 $ src/redis-server &
 
 
-## Step 3: Check Redis Server Status
-1. Ensure that the Redis server is running by pinging it using the Redis CLI:
+2. Make sure that the server is working by testing with:
+
+```bash
 $ src/redis-cli ping
 
-If the server is running correctly, you will receive the response: PONG
+You should receive the following response:
 
-## Step 4: Set and Retrieve Key-Value Pair
-1. Using the Redis client, set the value "School" for the key "Holberton":
+```plaintext
+PONG
+
+3. Using the Redis client, set the value "School" for the key "Holberton" with the following command:
+
+```plaintext
 127.0.0.1:[Port]> set Holberton School
 
-You should receive the response: OK
+The response should be "OK."
 
-2. Retrieve the value associated with the "Holberton" key:
+
+Verify that the value was set correctly:
 127.0.0.1:[Port]> get Holberton
+It should return "School."
 
-You should receive the response: "School"
+To stop the server, find the process ID of the `redis-server` 
+(you can use `ps` and `grep` for this):
 
-## Step 5: Kill Redis Server
-
-
-1. To stop the Redis server, find the process ID (PID) of the redis-server process 
-using ps and grep, and then use the kill command to terminate it:
-$ ps aux | grep redis-server
 $ kill [PID_OF_Redis_Server]
 
-## Step 6: Copy dump.rdb
+Copy the `dump.rdb` file from the `redis-5.0.7` directory into the root of the Queuing project.
 
-1. Copy the dump.rdb file from the redis-6.0.10 directory into the root of your 
-Queuing project.
+**Requirements:**
 
-## Step 7: Verify Redis Configuration
+- Running `get Holberton` in the Redis client should return "School."
 
-1. Running get Holberton in the Redis client should return "School" if the 
-configuration is correct.
+**Repo:**
 
-This completes the installation and configuration of Redis for your Queuing project.
-
-
-1. Node Redis Client
-mandatory
-Install node_redis using npm
-
-Using Babel and ES6, write a script named 0-redis_client.js. It should connect to the Redis server running on your machine:
-
-It should log to the console the message Redis client connected to the server when the connection to Redis works correctly
-It should log to the console the message Redis client not connected to the server: ERROR_MESSAGE when the connection to Redis does not work
-Requirements:
-
-To import the library, you need to use the keyword import
-bob@dylan:~$ ps ax | grep redis-server
- 2070 pts/1    S+     0:00 grep --color=auto redis-server
-bob@dylan:~$ 
-bob@dylan:~$ npm run dev 0-redis_client.js 
-
-> queuing_system_in_js@1.0.0 dev /root
-> nodemon --exec babel-node --presets @babel/preset-env "0-redis_client.js"
-
-[nodemon] 2.0.4
-[nodemon] to restart at any time, enter `rs`
-[nodemon] watching path(s): *.*
-[nodemon] watching extensions: js,mjs,json
-[nodemon] starting `babel-node --presets @babel/preset-env 0-redis_client.js`
-Redis client not connected to the server: Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
-Redis client not connected to the server: Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
-Redis client not connected to the server: Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
-^C
-bob@dylan:~$ 
-bob@dylan:~$ ./src/redis-server > /dev/null 2>&1 &
-[1] 2073
-bob@dylan:~$ ps ax | grep redis-server
- 2073 pts/0    Sl     0:00 ./src/redis-server *:6379
- 2078 pts/1    S+     0:00 grep --color=auto redis-server
-bob@dylan:~$
-bob@dylan:~$ npm run dev 0-redis_client.js 
-
-> queuing_system_in_js@1.0.0 dev /root
-> nodemon --exec babel-node --presets @babel/preset-env "0-redis_client.js"
-
-[nodemon] 2.0.4
-[nodemon] to restart at any time, enter `rs`
-[nodemon] watching path(s): *.*
-[nodemon] watching extensions: js,mjs,json
-[nodemon] starting `babel-node --presets @babel/preset-env 0-redis_client.js`
-Redis client connected to the server
-^C
-bob@dylan:~$
-Repo:
-
-GitHub repository: alx-backend
-Directory: 0x03-queuing_system_in_js
-File: 0-redis_client.js
+- GitHub repository: alx-backend
+- Directory: 0x03-queuing_system_in_js
+- Files: README.md, dump.rdb
